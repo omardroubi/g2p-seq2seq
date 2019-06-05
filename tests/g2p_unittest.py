@@ -9,6 +9,9 @@ import g2p_seq2seq.g2p_trainer_utils as g2p_trainer_utils
 from g2p_seq2seq.g2p import G2PModel
 from g2p_seq2seq.params import Params
 
+
+print("hello")
+
 class TestG2P(unittest.TestCase):
 
   def test_train(self):

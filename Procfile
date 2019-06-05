@@ -1,0 +1,1 @@
+web: gunicorn RunG2P:app --log-file=-
