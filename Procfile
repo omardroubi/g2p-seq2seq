@@ -1,1 +1,1 @@
-web: gunicorn RunG2P:app --log-file=-
+web: python RunG2P.py
