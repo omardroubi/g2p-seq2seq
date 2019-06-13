@@ -203,7 +203,6 @@ class G2PModel(object):
     assert len(self.inputs) < const_array_size
     self.inputs += [0] * (const_array_size - len(self.inputs))
 
-    self._G2PModel__interactive_input_fn()
     result = next(self.res_iter)
     pronunciations = []
     if self.decode_hp.return_beams:
