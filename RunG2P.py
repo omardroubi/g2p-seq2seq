@@ -16,14 +16,14 @@ def index():
 
     model.inputs = [] # initialization
     model._G2PModel__prepare_interactive_model()
-    output = model.decode_word(sys.argv[1])
+    output = model.decode_word("facebook")
 
     if (not output):
         print("")
+	    return "<h1>Orchard Data Collector</h1>"
     else:
         print(output[0]) # run for the first time
-
-    return "<h1>Orchard Data Collector</h1>"
+		return "<h1>Orchard Data Collector " + output[0] + "</h1>"
 
 
 @app.route("/__health", methods=["GET"])
