@@ -1,1 +1,1 @@
-web: python RunG2P.py
+web: python RunG2P.py google

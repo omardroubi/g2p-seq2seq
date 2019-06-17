@@ -7,23 +7,22 @@ from g2p_seq2seq.params import Params
 from flask import Flask, jsonify
 
 app = Flask(__name__)
+params = Params("g2p-seq2seq", '')
+params.hparams = g2p_trainer_utils.load_params("g2p-seq2seq")
+model = G2PModel(params)
+
+model.inputs = [] # initialization
+model._G2PModel__prepare_interactive_model()
 
 @app.route("/", methods=["GET"])
 def index():
-    params = Params("g2p-seq2seq", '')
-    params.hparams = g2p_trainer_utils.load_params("g2p-seq2seq")
-    model = G2PModel(params)
-
-    model.inputs = [] # initialization
-    model._G2PModel__prepare_interactive_model()
-    output = model.decode_word("facebook")
+    output = model.decode_word(sys.argv[1])
 
     if (not output):
-        print("")
-		return "<h1>Orchard Data Collector " + "not working " + "</h1>"
+    	return "<h1></h1>"
     else:
-        print(output[0]) # run for the first time
-		return "<h1>Orchard Data Collector " + output[0] + "</h1>"
+    	return "<h1>" + output[0] + "</h1>"
+#         print(output[0]) # run for the first time
 
 
 @app.route("/__health", methods=["GET"])
