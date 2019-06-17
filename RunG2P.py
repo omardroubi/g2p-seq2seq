@@ -20,7 +20,7 @@ def index():
 
     if (not output):
         print("")
-	    return "<h1>Orchard Data Collector</h1>"
+		return "<h1>Orchard Data Collector " + "not working " + "</h1>"
     else:
         print(output[0]) # run for the first time
 		return "<h1>Orchard Data Collector " + output[0] + "</h1>"
