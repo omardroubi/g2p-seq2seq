@@ -5,11 +5,8 @@ import g2p_seq2seq.g2p_trainer_utils as g2p_trainer_utils
 from g2p_seq2seq.g2p import G2PModel
 from g2p_seq2seq.params import Params
 from flask import Flask, jsonify
-from flask import request, url_for
-from flask_api import FlaskAPI, status, exceptions
 
-app = FlaskAPI(__name__)
-
+app = Flask(__name__)
 params = Params("g2p-seq2seq", '')
 params.hparams = g2p_trainer_utils.load_params("g2p-seq2seq")
 model = G2PModel(params)
@@ -17,35 +14,9 @@ model = G2PModel(params)
 model.inputs = [] # initialization
 model._G2PModel__prepare_interactive_model()
 
-
-@app.route("/", methods=['POST'])
-def notes_list():
-	wordObtained = str(request.data.get('text', ''))
-	output = model.decode_word(wordObtained)
-	return output
-
-@app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])
-def notes_detail(key):
-    """
-    Retrieve, update or delete note instances.
-    """
-    if request.method == 'PUT':
-        note = str(request.data.get('text', ''))
-        notes[key] = note
-        return note_repr(key)
-
-    elif request.method == 'DELETE':
-        notes.pop(key, None)
-        return '', status.HTTP_204_NO_CONTENT
-
-    # request.method == 'GET'
-    if key not in notes:
-        raise exceptions.NotFound()
-    return note_repr(key)
-
-
 @app.route("/", methods=["GET"])
 def index():
+    output = model.decode_word(sys.argv[1])
 
     if (not output):
     	return "<h1></h1>"
