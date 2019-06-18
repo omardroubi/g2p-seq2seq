@@ -22,26 +22,10 @@ model._G2PModel__prepare_interactive_model()
 def notes_list():
 	wordObtained = str(request.data.get('text', ''))
 	output = model.decode_word(wordObtained)
-	return output
-
-@app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])
-def notes_detail(key):
-    """
-    Retrieve, update or delete note instances.
-    """
-    if request.method == 'PUT':
-        note = str(request.data.get('text', ''))
-        notes[key] = note
-        return note_repr(key)
-
-    elif request.method == 'DELETE':
-        notes.pop(key, None)
-        return '', status.HTTP_204_NO_CONTENT
-
-    # request.method == 'GET'
-    if key not in notes:
-        raise exceptions.NotFound()
-    return note_repr(key)
+	if (not output):
+		return ""
+	else:
+		return output[0]
 
 
 @app.route("/", methods=["GET"])
